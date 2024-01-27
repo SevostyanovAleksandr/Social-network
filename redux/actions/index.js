@@ -6,6 +6,8 @@ import "firebase/database"
 import "firebase/app"
 import "firebase/firestore";
 
+
+
 export function fetchUser() {
     return((dispatch)=> {
         firebase.firestore()

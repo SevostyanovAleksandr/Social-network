@@ -17,7 +17,7 @@ export class Main extends Component {
         )
     }
     return (
-      <View  style ={{flex: 1, justifyContent:"center", justifyContent:"center"}} >
+      <View  style ={{flex: 1, justifyContent:"center", alignItems:"center"}} >
           <Text>{currentUser.name} в системе</Text>
         </View>
     )
@@ -28,4 +28,4 @@ const mapStateToProps = (store) => ({
 })
 const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser}, dispatch)
 
-export default connect(null, mapDispatchProps)(Main);
+export default connect(mapStateToProps, mapDispatchProps)(Main);

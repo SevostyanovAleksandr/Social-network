@@ -6,6 +6,7 @@ import "firebase/database"
 import "firebase/app"
 import "firebase/firestore";
 import firebase from 'firebase/compat/app';
+
 export class Register extends Component {
   constructor(props){
     super(props);
