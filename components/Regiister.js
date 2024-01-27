@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { View, Button, TextInput} from 'react-native'
-import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-
+import "firebase/compat/firestore";
+import "firebase/database"
+import "firebase/app"
+import "firebase/firestore";
+import firebase from 'firebase/compat/app';
 export class Register extends Component {
   constructor(props){
     super(props);
@@ -16,19 +18,24 @@ export class Register extends Component {
    // привязка перемененых к функции
    this.onSignUp = this.onSignUp.bind(this)
   }
+
 onSignUp(){
   const {email, password, name} = this.state;
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in 
-    var user = userCredential.user;
-    // ...
+  //создание пользователя
+ firebase.auth().createUserWithEmailAndPassword(email, password )
+  .then((result) => {
+    //добавление вновь созданного польователя
+    firebase.firestore().collection("users")
+    .doc(firebase.auth().currentUser.uid)
+    .set({
+      name,
+      email,
+    })
+    console.log("Пользователь успешно добавлен в базу данных Firestore");
   })
   .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ..
-  });
+    console.error("Ошибка при добавлении пользователя в базу данных Firestore:", error);
+  })
   }
 
     render() {

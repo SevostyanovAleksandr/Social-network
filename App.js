@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import LandingScreen from './components/Landing';
@@ -6,9 +7,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import LoginScreen from './components/Login';
 import {Component} from 'react'
+import "firebase/compat/auth";
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux'
+import { thunk } from 'redux-thunk';
+import rootReducer from './redux/reduceres'
+import MainScreen from "./components/Main";
+import "firebase/firestore";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
+const store = createStore(rootReducer, applyMiddleware(thunk))
+
+
+
+ // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDj4nrSS_9CWm8F395z0zIwl08bCvHpSvQ",
   authDomain: "instagram-demo-9d362.firebaseapp.com",
@@ -19,9 +32,8 @@ const firebaseConfig = {
   measurementId: "G-G453137L42"
 };
 
-firebase.initializeApp(firebaseConfig);
 const Stack = createStackNavigator();
-
+firebase.initializeApp(firebaseConfig)
 
 
 export class App extends Component {
@@ -37,12 +49,12 @@ componentDidMount(){
     if(!user) {
       this.setState({
         loggedIn: false,
-        loaded: true
+        loaded: true,
       }) 
     } else {
       this.setState({
         loggedIn: true,
-        loaded: true
+        loaded: true,
     })
   }
   })
@@ -51,7 +63,7 @@ componentDidMount(){
     const { loggedIn,loaded } = this.state;
     if (!loaded) {
       return (
-        <View  style ={{flex: 1, justifyContent:"center"}} >
+        <View  style ={{flex: 1, justifyContent:"center", alignItems:"center"}} >
           <Text>Loading</Text>
         </View>
       )
@@ -65,12 +77,13 @@ componentDidMount(){
         <Stack.Screen name="Login" component={LoginScreen}/>
      </Stack.Navigator>
     </NavigationContainer>
-    )
+    );
   }
   return (
-    <View  style ={{flex: 1, justifyContent:"center"}} >
-          <Text>Пользователь загружен</Text>
-        </View>
+    <Provider store={store}>
+         <MainScreen/>
+    </Provider>
+    
   )
   }
 }
