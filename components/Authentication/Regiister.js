@@ -12,9 +12,9 @@ export class Register extends Component {
     super(props);
 
     this.state = {
-        email: "",
-        password: "",
-        name: ""
+        email: '',
+        password: '',
+        name: ''
     }
    // привязка перемененых к функции
    this.onSignUp = this.onSignUp.bind(this)
@@ -23,16 +23,15 @@ export class Register extends Component {
 onSignUp(){
   const {email, password, name} = this.state;
   //создание пользователя
- firebase.auth().createUserWithEmailAndPassword(email, password )
+ firebase.auth().createUserWithEmailAndPassword(email, password)
   .then((result) => {
-    //добавление вновь созданного польователя
     firebase.firestore().collection("users")
     .doc(firebase.auth().currentUser.uid)
     .set({
       name,
-      email,
+      email
     })
-    console.log("Пользователь успешно добавлен в базу данных Firestore");
+    console.log("Пользователь успешно добавлен в базу данных Firestore", result);
   })
   .catch((error) => {
     console.error("Ошибка при добавлении пользователя в базу данных Firestore:", error);

@@ -26,16 +26,14 @@ export class Login extends Component {
 onSignUp(){
 
   const {email, password} = this.state;
-  const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
+      console.log("Пользователь успешно вошел в систему", result);
       // ...
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      console.error("Не удача, в систему не зашел", error);
     });
   }
 

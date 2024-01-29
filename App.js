@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import LandingScreen from './components/Landing';
-import RegisterScreen from './components/Regiister';
+import RegisterScreen from './components/Authentication/Regiister';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import LoginScreen from './components/Login';
+import LoginScreen from './components/Authentication/Login';
 import {Component} from 'react'
 import "firebase/compat/auth";
 import { Provider } from 'react-redux';
