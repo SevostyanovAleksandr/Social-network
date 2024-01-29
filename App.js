@@ -16,7 +16,7 @@ import MainScreen from "./components/Main";
 import "firebase/firestore";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-
+import AddScreen from './components/TabScreen/Add'
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
@@ -81,7 +81,13 @@ componentDidMount(){
   }
   return (
     <Provider store={store}>
-         <MainScreen/>
+       <NavigationContainer>
+        <Stack.Navigator initialRouteName ="Main">
+        <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Add" component={AddScreen} />
+
+        </Stack.Navigator>
+        </NavigationContainer>
     </Provider>
     
   )
