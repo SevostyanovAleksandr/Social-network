@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, Button, TextInput, Image } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';

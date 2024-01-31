@@ -85,7 +85,7 @@ componentDidMount(){
     <Provider store={store}>
        <NavigationContainer>
         <Stack.Navigator initialRouteName ="Main">
-        <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Main" component={MainScreen}/> 
         <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
         <Stack.Screen name="SaveImage" component={SaveImageScreen} navigation={this.props.navigation} />
         </Stack.Navigator>
