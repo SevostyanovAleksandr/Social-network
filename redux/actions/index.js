@@ -1,5 +1,5 @@
 import firebase from "firebase/compat/app";
-import { USER_POST_STATE_CHANGE, USER_STATE_CHANGE } from "../constans/index";
+import { USER_POST_STATE_CHANGE, USER_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE} from "../constans/index";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { SnapshotViewIOSComponent } from 'react-native'
@@ -21,7 +21,7 @@ export function fetchUser() {
             })
     })
 }
-
+ 
 export function fetchUserPosts() {
     return ((dispatch) => {
         firebase.firestore()
@@ -40,3 +40,20 @@ export function fetchUserPosts() {
             })
     })
 }
+
+export function fetchUserFollowing() {
+    return ((dispatch) => {
+        firebase.firestore()
+            .collection("following")
+            .doc(firebase.auth().currentUser.uid)
+            .collection("userFollowing")
+            .onSnapshot((snapshot) => {
+                let following = snapshot.docs.map(doc => {
+                    const id = doc.id;
+                    return id
+                })
+                dispatch({ type: USER_FOLLOWING_STATE_CHANGE, following })
+            })
+    })
+}
+

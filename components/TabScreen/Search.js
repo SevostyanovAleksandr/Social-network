@@ -1,10 +1,8 @@
-import React from 'react'
 import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
-import { useState } from 'react'
-import { user } from '../../redux/reduceres/user';
+import React, { useState } from 'react'
 
 export default function Search(props) {
   const [users, setUsers] = useState([])
