@@ -1,10 +1,7 @@
 import firebase from "firebase/compat/app";
 import { USER_STATE_CHANGE } from "../constans/index";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/database"
-import "firebase/app"
-import "firebase/firestore";
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 
 

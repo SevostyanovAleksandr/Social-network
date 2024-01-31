@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { View, Button, TextInput} from 'react-native'
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/database"
-import "firebase/app"
-import "firebase/firestore";
-import firebase from 'firebase/compat/app';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore'; 
 
 export class Register extends Component {
   constructor(props){
@@ -31,6 +28,7 @@ onSignUp(){
       name,
       email
     })
+    
     console.log("Пользователь успешно добавлен в базу данных Firestore", result);
   })
   .catch((error) => {

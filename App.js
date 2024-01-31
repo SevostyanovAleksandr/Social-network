@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import LandingScreen from './components/Landing';
@@ -13,11 +12,13 @@ import { createStore, applyMiddleware } from 'redux'
 import { thunk } from 'redux-thunk';
 import rootReducer from './redux/reduceres'
 import MainScreen from "./components/Main";
-import "firebase/firestore";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore'; 
 import AddScreen from './components/TabScreen/Add'
+import SaveImageScreen from './components/SaveImage';
 const store = createStore(rootReducer, applyMiddleware(thunk))
+
 
 
 
@@ -43,6 +44,7 @@ export class App extends Component {
       loader: false,
     }
   }
+
 
 componentDidMount(){
   firebase.auth().onAuthStateChanged((user)  => {
@@ -84,8 +86,8 @@ componentDidMount(){
        <NavigationContainer>
         <Stack.Navigator initialRouteName ="Main">
         <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Add" component={AddScreen} />
-
+        <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
+        <Stack.Screen name="SaveImage" component={SaveImageScreen} navigation={this.props.navigation} />
         </Stack.Navigator>
         </NavigationContainer>
     </Provider>

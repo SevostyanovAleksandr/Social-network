@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { View, Button, TextInput} from 'react-native'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/database"
-import "firebase/app"
-import "firebase/firestore";
-import firebase from "firebase/compat/app";
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore'; 
 
 
 
