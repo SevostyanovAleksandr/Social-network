@@ -1,4 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
 import LandingScreen from './components/Landing';
 import RegisterScreen from './components/Authentication/Regiister';
@@ -16,7 +17,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
 import AddScreen from './components/TabScreen/Add'
-import SaveImageScreen from './components/SaveImage';
+import SaveScreen from './components/SaveImage';
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
@@ -38,63 +39,62 @@ firebase.initializeApp(firebaseConfig)
 
 
 export class App extends Component {
-  constructor(props){
-    super(props);
+  constructor(props) {
+    super()
     this.state = {
-      loader: false,
+      loaded: false,
     }
   }
 
-
-componentDidMount(){
-  firebase.auth().onAuthStateChanged((user)  => {
-    if(!user) {
-      this.setState({
-        loggedIn: false,
-        loaded: true,
-      }) 
-    } else {
-      this.setState({
-        loggedIn: true,
-        loaded: true,
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.setState({
+          loggedIn: false,
+          loaded: true,
+        })
+      } else {
+        this.setState({
+          loggedIn: true,
+          loaded: true,
+        })
+      }
     })
   }
-  })
-}
   render() {
-    const { loggedIn,loaded } = this.state;
+    const { loggedIn, loaded } = this.state;
     if (!loaded) {
       return (
-        <View  style ={{flex: 1, justifyContent:"center", alignItems:"center"}} >
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text>Loading</Text>
         </View>
       )
     }
-    if (!loggedIn){
-    return (
-      <NavigationContainer>
-      <Stack.Navigator initialRouteName ="Landing">
-        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Register" component={RegisterScreen}/>
-        <Stack.Screen name="Login" component={LoginScreen}/>
-     </Stack.Navigator>
-    </NavigationContainer>
-    );
-  }
-  return (
-    <Provider store={store}>
-       <NavigationContainer>
-        <Stack.Navigator initialRouteName ="Main">
-        <Stack.Screen name="Main" component={MainScreen}/> 
-        <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
-        <Stack.Screen name="SaveImage" component={SaveImageScreen} navigation={this.props.navigation} />
-        </Stack.Navigator>
+
+    if (!loggedIn) {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Landing">
+            <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+          </Stack.Navigator>
         </NavigationContainer>
-    </Provider>
-    
-  )
+      );
+    }
+
+    return (
+      <Provider store={store}>
+        <NavigationContainer >
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen name="Main" component={MainScreen} />
+            <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
+            <Stack.Screen name="SaveImage" component={SaveScreen} navigation={this.props.navigation}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    )
   }
 }
 
 export default App
-

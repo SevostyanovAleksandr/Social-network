@@ -5,40 +5,40 @@ import 'firebase/compat/firestore';
 import React, { useState } from 'react'
 
 export default function Search(props) {
-  const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([])
 
-  const fetchUsersSearch  = (search) => {
-    firebase.firestore()
-    .collection("users")
-    .where("name", ">=", search)
-    .get()
-    .then((snapshot) => {
-      let users = snapshot.docs.map(doc => {
-        const data = doc.data();
-        const id = doc.id;
-        return { id, ...data }
-    });
-    setUsers(users);
-    })
-  }
-  return (
-    <View>
-        <TextInput 
-        placeholder='Введите имя контакта'
-        onChangeText={(search)=> fetchUsersSearch(search)}/>
-        <FlatList
-        numColumns={1}
-        horizontal={false}
-        data={users}
-        renderItem={({item})=> (
-          <TouchableOpacity onPress={() => props.navigation.navigate("Profile", {uid: item.id})} >
-          <Text>
-            {item.name}
-          </Text>
-          </TouchableOpacity>
+    const fetchUsers = (search) => {
+        firebase.firestore()
+            .collection('users')
+            .where('name', '>=', search)
+            .get()
+            .then((snapshot) => {
+                let users = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    const id = doc.id;
+                    return { id, ...data }
+                });
+                setUsers(users);
+            })
+    }
+    return (
+        <View>
+            <TextInput
+                placeholder="Введите имя контакта..."
+                onChangeText={(search) => fetchUsers(search)} />
 
-        )}
-        />
-    </View>
-  )
+            <FlatList
+                numColumns={1}
+                horizontal={false}
+                data={users}
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        onPress={() => props.navigation.navigate("Profile", {uid: item.id})}>
+                        <Text>{item.name}</Text>
+                    </TouchableOpacity>
+
+                )}
+            />
+        </View>
+    )
 }

@@ -1,9 +1,8 @@
-import { USER_POST_STATE_CHANGE, USER_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE } from "../constans"
-
+import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, CLEAR_DATE } from "../constans/index"
 
 const initialState = {
     currentUser: null,
-    posts: [], 
+    posts: [],
     following: [],
 }
 
@@ -14,17 +13,23 @@ export const user = (state = initialState, action) => {
                 ...state,
                 currentUser: action.currentUser
             }
-        case USER_POST_STATE_CHANGE:
+        case USER_POSTS_STATE_CHANGE:
             return {
                 ...state,
                 posts: action.posts
             }
-            case USER_FOLLOWING_STATE_CHANGE:
+
+        case USER_FOLLOWING_STATE_CHANGE:
             return {
                 ...state,
                 following: action.following
             }
-            
+            case CLEAR_DATE:
+            return {
+                currentUser: null,
+                posts: [],
+                following: [],}
+                
         default:
             return state;
     }
