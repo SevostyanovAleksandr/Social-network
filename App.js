@@ -18,6 +18,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
 import AddScreen from './components/TabScreen/Add'
 import SaveScreen from './components/SaveImage';
+import  CommentScreen from './components/Comment'
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
@@ -89,7 +90,8 @@ export class App extends Component {
           <Stack.Navigator initialRouteName="Main">
             <Stack.Screen name="Main" component={MainScreen} />
             <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
-            <Stack.Screen name="SaveImage" component={SaveScreen} navigation={this.props.navigation}/>
+            <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation}/>
+            <Stack.Screen name="Comment" component={CommentScreen} navigation={this.props.navigation}/>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

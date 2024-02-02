@@ -24,12 +24,12 @@ export const user = (state = initialState, action) => {
                 ...state,
                 following: action.following
             }
-            case CLEAR_DATE:
+        case CLEAR_DATE:
             return {
                 currentUser: null,
                 posts: [],
-                following: [],}
-                
+                following: []
+            }
         default:
             return state;
     }

@@ -118,6 +118,7 @@ function Profile(props) {
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
                             />
+                          
                         </View>
 
                     )}
