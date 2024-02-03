@@ -24,45 +24,78 @@ export class Main extends Component {
         this.props.fetchUserPosts();
         this.props.fetchUserFollowing();
     }
+
+    
     render() {
         return (
-            <Tab.Navigator initialRouteName="Feed" labeled={false}>
-                <Tab.Screen name="Feed" component={FeedScreen}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="home" color={color} size={26} />
-                        ),
-                    }} />
-                <Tab.Screen name="Search" component={SearchScreen} navigation={this.props.navigation}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="magnify" color={color} size={26} />
-                        ),
-                    }} />
-                <Tab.Screen name="AddContainer" component={EmptyScreen}
-                    listeners={({ navigation }) => ({
-                        tabPress: event => {
-                            event.preventDefault();
-                            navigation.navigate("Add")
-                        }
-                    })}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="plus-box" color={color} size={26} />
-                        ),
-                    }} />
-                <Tab.Screen name="Profile" component={ProfileScreen} 
-                listeners={({ navigation }) => ({
-                    tabPress: event => {
-                        event.preventDefault();
-                        navigation.navigate("Profile", {uid: firebase.auth().currentUser.uid})
-                    }})}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="account-circle" color={color} size={26} />
-                        ),
-                    }} />
-            </Tab.Navigator>
+            <Tab.Navigator
+  initialRouteName="Feed"
+  labeled={true}
+  tabBarOptions={{
+    
+    style: {
+      backgroundColor: '#fff',
+      borderTopColor: '#ddd',
+      borderTopWidth: 1,
+    },
+  }}
+>
+  <Tab.Screen
+    name="Feed"
+    component={FeedScreen}
+    options={{
+      tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons name="home" color={color} size={26} />
+      ),
+    }}
+  />
+  <Tab.Screen
+    name="Search"
+    component={SearchScreen}
+    navigation={this.props.navigation}
+    options={{
+      tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons name="magnify" color={color} size={26} />
+      ),
+    }}
+  />
+  <Tab.Screen
+    name="AddContainer"
+    component={EmptyScreen}
+    listeners={({ navigation }) => ({
+      tabPress: event => {
+        event.preventDefault();
+        navigation.navigate("Add");
+      },
+    })}
+    options={{
+      tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons name="plus-box" color={color} size={26} />
+      ),
+    }}
+  />
+  <Tab.Screen
+    name="Profile"
+    component={ProfileScreen}
+    listeners={({ navigation }) => ({
+      tabPress: event => {
+        event.preventDefault();
+        navigation.navigate("Profile", {
+          uid: firebase.auth().currentUser.uid,
+        });
+      },
+    })}
+    options={{
+      tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons
+          name="account-circle"
+          color={color}
+          size={26}
+        />
+      ),
+    }}
+  />
+</Tab.Navigator>
         )
     }
 }

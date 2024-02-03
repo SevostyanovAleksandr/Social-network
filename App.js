@@ -17,7 +17,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
 import AddScreen from './components/TabScreen/Add'
-import SaveScreen from './components/SaveImage';
+import SaveScreen from './components/Save';
 import  CommentScreen from './components/Comment'
 const store = createStore(rootReducer, applyMiddleware(thunk))
 

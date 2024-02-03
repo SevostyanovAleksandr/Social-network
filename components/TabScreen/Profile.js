@@ -80,52 +80,47 @@ function Profile(props) {
     }
     return (
         <View style={styles.container}>
-            <View style={styles.containerInfo}>
-                <Text>{user.name}</Text>
-                <Text>{user.email}</Text>
+        <View style={styles.containerInfo}>
+            <Text>{user.name}</Text>
+            <Text>{user.email}</Text>
 
-                {props.route.params.uid !== firebase.auth().currentUser.uid ? (
-                    <View>
-                        {following ? (
+            {props.route.params.uid !== firebase.auth().currentUser.uid ? (
+                <View>
+                    {following ? (
+                        <Button
+                            title="Отписаться"
+                            onPress={() => onUnfollow()}
+                        />
+                    ) :
+                        (
                             <Button
-                                title="Отписаться"
-                                onPress={() => onUnfollow()}
+                                title="Подписаться"
+                                onPress={() => onFollow()}
                             />
-                        ) :
-                            (
-                                <Button
-                                    title="Подписаться"
-                                    onPress={() => onFollow()}
-                                />
-                            )}
-                    </View>
-                ) :  <Button
-                title="Выйти"
-                onPress={() => onLogout()}
-            />}
-            </View>
-
-            <View style={styles.containerGallery}>
-                <FlatList
-                    numColumns={3}
-                    horizontal={false}
-                    data={userPosts}
-                    renderItem={({ item }) => (
-                        <View
-                            style={styles.containerImage}>
-
-                            <Image
-                                style={styles.image}
-                                source={{ uri: item.downloadURL }}
-                            />
-                          
-                        </View>
-
-                    )}
-
-                />
-            </View>
+                        )}
+                </View>
+            ) :  <Button
+            title="Выйти"
+            onPress={() => onLogout()}
+        />}
         </View>
+
+        <View style={styles.containerGallery}>
+            <FlatList
+                numColumns={2}
+                horizontal={false}
+                data={userPosts}
+                renderItem={({ item }) => (
+                    <View style={styles.containerImage}>
+                        <Image
+                            style={styles.image}
+                            source={{ uri: item.downloadURL }}
+                        />
+                    </View>
+                )}
+            />
+        </View>
+    </View>
 
     )
 }
@@ -135,20 +130,23 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     containerInfo: {
-        margin: 20
+        margin: 20,
     },
     containerGallery: {
-        flex: 1
+        flex: 1,
     },
     containerImage: {
-        flex: 1 / 3
-
+        flex: 1 / 2,
+        aspectRatio: 1 / 1,
+        margin: 1,
     },
     image: {
         flex: 1,
-        aspectRatio: 1 / 1
-    }
-})
+        aspectRatio: 1 / 1,
+        borderRadius: 10, // Произвольное значение для закругления углов
+        overflow: 'hidden',
+    },
+});
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,
     posts: store.userState.posts,

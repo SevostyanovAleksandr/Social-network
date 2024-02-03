@@ -1,5 +1,5 @@
 import firebase from "firebase/compat/app";
-import { USER_POSTS_STATE_CHANGE,USERS_DATA_STATE_CHANGE,  USER_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, CLEAR_DATA} from "../constans/index";
+import { USER_POSTS_STATE_CHANGE,USERS_DATA_STATE_CHANGE,  USER_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, CLEAR_DATE} from "../constans/index";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { SnapshotViewIOSComponent } from 'react-native'
@@ -9,7 +9,7 @@ require('firebase/firestore')
 
 export function clearData() {
     return ((dispatch) => {
-        dispatch({type: CLEAR_DATA})
+        dispatch({type: CLEAR_DATE})
     })
 }
 export function fetchUser() {

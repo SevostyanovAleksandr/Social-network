@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity} from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
-import SaveImage from '../SaveImage';
+import Save from '../Save';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App({navigation}) {
@@ -60,17 +60,18 @@ const takePicture = async () => {
     return <Text>Нет разраешения к использованию камеры</Text>;
   }
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <View style={styles.cameraContainer} >
-        <Camera
-          ref={ref => setCamera(ref)}
-          style={styles.fixedRatio}
-          type={type}
-          ratio={'1:1'} />
-      </View>
-
-      <Button
-        title="Камера"
+    <View style={{ flex: 1, backgroundColor: '#000' }}>
+    <View style={styles.cameraContainer}>
+      <Camera
+        ref={ref => setCamera(ref)}
+        style={styles.fixedRatio}
+        type={type}
+        ratio={'1:1'} />
+    </View>
+  
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 20 }}>
+      <TouchableOpacity
+        style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
         onPress={() => {
           setType(
             type === Camera.Constants.Type.back
@@ -78,12 +79,36 @@ const takePicture = async () => {
               : Camera.Constants.Type.back
           );
         }}>
-      </Button>
-      <Button title="Сфоткать" onPress={() => takePicture()} />
-      <Button title='Сохранить' onPress={() => navigation.navigate('SaveImage', {image})}></Button>
-      <Button title="Выбрать изображение" onPress={() => pickImage()} />
-      {image && <Image source={{ uri: image }}style={{flex:1, width: "100%", height: "70%", resizeMode: 'cover' }}/>}
+        <Text style={{ color: '#000' }}>Переключить камеру</Text>
+      </TouchableOpacity>
+  
+      <TouchableOpacity
+        style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
+        onPress={() => takePicture()}>
+        <Text style={{ color: '#000' }}>Сфотографировать</Text>
+      </TouchableOpacity>
     </View>
+  
+    {image && (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Image source={{ uri: image }} style={{ width: '100%', height: '70%', resizeMode: 'cover' }} />
+      </View>
+    )}
+  
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: 20 }}>
+      <TouchableOpacity
+        style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
+        onPress={() => navigation.navigate('Save', { image })}>
+        <Text style={{ color: '#000' }}>Сохранить</Text>
+      </TouchableOpacity>
+  
+      <TouchableOpacity
+        style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
+        onPress={() => pickImage()}>
+        <Text style={{ color: '#000' }}>Выбрать изображение</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
   );
 }
 
@@ -99,4 +124,3 @@ const styles = StyleSheet.create({
   }
 
 })
-
