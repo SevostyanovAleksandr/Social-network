@@ -4,6 +4,8 @@ import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import Save from '../Save';
 import { NavigationContainer } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 export default function App({navigation}) {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -68,8 +70,20 @@ const takePicture = async () => {
         type={type}
         ratio={'1:1'} />
     </View>
-  
-    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 20 }}>
+    {image && (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Image source={{ uri: image }} style={{ width: '100%', height: '100%', resizeMode: 'cover' }} />
+      </View>
+    )}
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 30 }}>  
+    <View >
+      <TouchableOpacity
+        style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
+        onPress={() => pickImage()}>
+         <MaterialCommunityIcons name="file-image" size={26} />
+      </TouchableOpacity>
+      </View>
+      <View style={{marginLeft:30}}>
       <TouchableOpacity
         style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
         onPress={() => {
@@ -79,36 +93,25 @@ const takePicture = async () => {
               : Camera.Constants.Type.back
           );
         }}>
-        <Text style={{ color: '#000' }}>Переключить камеру</Text>
+         <MaterialCommunityIcons name="camera-flip" size={26} />
       </TouchableOpacity>
-  
+      </View>
+      <View style={{marginLeft:30}}>
       <TouchableOpacity
         style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
         onPress={() => takePicture()}>
-        <Text style={{ color: '#000' }}>Сфотографировать</Text>
+           <MaterialCommunityIcons name="camera-iris" size={26} />
       </TouchableOpacity>
-    </View>
-  
-    {image && (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Image source={{ uri: image }} style={{ width: '100%', height: '70%', resizeMode: 'cover' }} />
       </View>
-    )}
-  
-    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: 20 }}>
+      <View style={{marginLeft:30}}>
       <TouchableOpacity
         style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
         onPress={() => navigation.navigate('Save', { image })}>
-        <Text style={{ color: '#000' }}>Сохранить</Text>
+         <MaterialCommunityIcons name="content-save" size={26} />
       </TouchableOpacity>
-  
-      <TouchableOpacity
-        style={{ backgroundColor: '#fff', padding: 10, borderRadius: 50 }}
-        onPress={() => pickImage()}>
-        <Text style={{ color: '#000' }}>Выбрать изображение</Text>
-      </TouchableOpacity>
+      </View>
+      </View>
     </View>
-  </View>
   );
 }
 

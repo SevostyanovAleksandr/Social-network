@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 function Feed(props) {
     const [posts, setPosts] = useState([]);
@@ -42,13 +44,20 @@ function Feed(props) {
                                 source={{ uri: item.downloadURL }}
                             />
                             </View>
+                            <View style={{ flexDirection: 'row', justifyContent: "flex-end", margin: 12, paddingRight:"3%", paddingTop:"2%" }}>
+                                <View style={{ marginRight: "5%"}}>
                             <TouchableOpacity
-    style={styles.containerComment}
     onPress={() => props.navigation.navigate('Comment', { postId: item.id, uid: item.user.uid })}
 >
-    <Text style={styles.commentText}>введите комментарий...</Text>
+<MaterialCommunityIcons name="comment-edit" size={30} />
 </TouchableOpacity>
-                                
+</View>
+<View>
+<TouchableOpacity>
+         <MaterialCommunityIcons name="cards-heart" size={30} />
+      </TouchableOpacity>
+      </View>
+      </View>      
                         </View>
 
                     )}
@@ -66,7 +75,7 @@ const styles = StyleSheet.create({
     },
     containerName: {
         marginTop: 10, 
-        marginEnd: 30,
+        marginEnd: 20,
         marginLeft:10,
     // Имя файла шрифта без расширения
         fontSize: 16,
@@ -80,7 +89,7 @@ const styles = StyleSheet.create({
         flex: 1 / 3,
         borderRadius: 10, // Произвольное значение для закругления углов
         overflow: 'hidden', // Обрезаем изображение по границам контейнера
-        marginHorizontal: 1
+        marginHorizontal: 0
 
     },
     image: {
@@ -92,7 +101,7 @@ const styles = StyleSheet.create({
     }, 
     containerComment: {
         backgroundColor: '#f0f0f0',
-        padding: 20,
+        padding: 10,
         borderRadius: 5,
         marginVertical: 1,
     },

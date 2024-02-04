@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     },
     containerGallery: {
         flex: 1,
+        margin:0
     },
     containerImage: {
         flex: 1 / 2,

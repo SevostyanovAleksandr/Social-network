@@ -60,7 +60,7 @@ export class Main extends Component {
     }}
   />
   <Tab.Screen
-    name="AddContainer"
+    name="Photo"
     component={EmptyScreen}
     listeners={({ navigation }) => ({
       tabPress: event => {
