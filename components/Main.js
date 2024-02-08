@@ -6,6 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FeedScreen from './TabScreen/Feed'
 import ProfileScreen from './TabScreen/Profile'
+import ChatScreen from './TabScreen/Chat'
 import SearchScreen from './TabScreen/Search'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
@@ -56,6 +57,21 @@ export class Main extends Component {
     options={{
       tabBarIcon: ({ color, size }) => (
         <MaterialCommunityIcons name="magnify" color={color} size={26} />
+      ),
+    }}
+  />
+   <Tab.Screen
+    name="Chat"
+    component={ChatScreen}
+    listeners={({ navigation }) => ({
+      tabPress: event => {
+        event.preventDefault();
+        navigation.navigate("Chat");
+      },
+    })}
+    options={{
+      tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons name="chat" color={color} size={30} />
       ),
     }}
   />

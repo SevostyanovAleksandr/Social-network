@@ -102,9 +102,11 @@ function Profile(props) {
             ) :  <Button
             title="Выйти"
             onPress={() => onLogout()}
-        />}
-        </View>
+        />
+        
+        }
 
+        </View>
         <View style={styles.containerGallery}>
             <FlatList
                 numColumns={2}

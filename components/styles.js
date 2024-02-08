@@ -156,7 +156,8 @@ const container = StyleSheet.create({
     formCenter: {
         justifyContent: 'center',
         flex: 1,
-        margin: 25
+        margin: 55, 
+        
     },
     containerImage: {
         flex: 1 / 3

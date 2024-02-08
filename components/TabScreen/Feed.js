@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { View, Button,Text, Image, FlatList, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Button,Text, Image, FlatList, StyleSheet, TouchableOpacity, ParsedText} from 'react-native'
 import { connect } from 'react-redux'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
@@ -9,6 +9,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 function Feed(props) {
     const [posts, setPosts] = useState([]);
+
+    const [isHeartRed, setIsHeartRed] = useState(false);
+
+    const handlePress = () => {
+      setIsHeartRed(!isHeartRed);}
+      const onUsernamePress = (username, matchIndex) => {
+        props.navigation.navigate("ProfileOther", { username, uid: undefined })
+    }
+
     useEffect(() => {
         let posts = [];
         if (props.usersFollowingLoaded == props.following.length) {
@@ -42,7 +51,9 @@ function Feed(props) {
                             <Image
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
+                               
                             />
+                            <Text>{item.caption}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "flex-end", margin: 12, paddingRight:"3%", paddingTop:"2%" }}>
                                 <View style={{ marginRight: "5%"}}>
@@ -53,9 +64,13 @@ function Feed(props) {
 </TouchableOpacity>
 </View>
 <View>
-<TouchableOpacity>
-         <MaterialCommunityIcons name="cards-heart" size={30} />
-      </TouchableOpacity>
+<TouchableOpacity onPress={handlePress}>
+      <MaterialCommunityIcons
+        name="cards-heart"
+        size={30}
+        color={isHeartRed ? 'red' : 'black'}
+      />
+    </TouchableOpacity>
       </View>
       </View>      
                         </View>
@@ -88,8 +103,6 @@ const styles = StyleSheet.create({
     containerImage: {
         flex: 1 / 3,
         borderRadius: 10, // Произвольное значение для закругления углов
-        overflow: 'hidden', // Обрезаем изображение по границам контейнера
-        marginHorizontal: 0
 
     },
     image: {
@@ -97,11 +110,11 @@ const styles = StyleSheet.create({
         aspectRatio: 1 / 1
     }, 
     containerInfo:{
-        margin:1
+        margin:0
     }, 
     containerComment: {
         backgroundColor: '#f0f0f0',
-        padding: 10,
+        padding: 0,
         borderRadius: 5,
         marginVertical: 1,
     },

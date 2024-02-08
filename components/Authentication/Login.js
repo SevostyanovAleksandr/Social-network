@@ -1,9 +1,10 @@
 import React, { Component, useState } from 'react'
-import { View, Button, TextInput, Text} from 'react-native'
+import { View, TextInput, Text, ImageBackground, StyleSheet, TouchableOpacity, Pressable} from 'react-native'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { container, form } from '../styles'; 
+
 
 
 
@@ -14,38 +15,70 @@ export default function Login(props) {
 
   const onSignUp = () => {
       firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(console.log("Вошел успешно"))
+      .catch((Error) => Alert.alert("Данные введены неверно", Error.message))
   }
 
   return (
-      <View style={container.center}>
-          <View style={container.formCenter}>
+    
+    <View style={styles.container}>
+        <ImageBackground source={require('../Image/two.jpg')} style={[styles.background, { }]}>
+        <View style={container.formCenter}>
+            <View>
               <TextInput
                   style={form.textInput}
                   placeholder="email"
                   onChangeText={(email) => setEmail(email)}
               />
+              </View>
+              <View>
               <TextInput
                   style={form.textInput}
                   placeholder="password"
                   secureTextEntry={true}
                   onChangeText={(password) => setPassword(password)}
               />
-
-              <Button
-                  style={form.button}
-                  onPress={() => onSignUp()}
-                  title="Войти"
-              />
+              </View>
+              <View>
+               <TouchableOpacity >
+              <Pressable 
+              onPress={() => onSignUp()}
+              style={styles.button}>
+                <Text style={styles.text}>Войти</Text>
+              </Pressable>
+            </TouchableOpacity>
+            </View>
           </View>
-
-
-          <View style={form.bottomButton} >
-              <Text
-                  title="Регистрация"
-                  onPress={() => props.navigation.navigate("Register")} >
-                  Don't have an account? SignUp.
-              </Text>
-          </View>
+          </ImageBackground>
+          
       </View>
   )
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    background: {
+      flex: 1,
+    },
+    button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 20,
+      elevation: 3,
+      backgroundColor: '#926EAE',
+      width: 116, 
+      marginLeft: "32%"//
+    },
+    text: {
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
+    },
+  });
+  

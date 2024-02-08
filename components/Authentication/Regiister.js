@@ -1,10 +1,11 @@
 import React, { Component, useState } from 'react'
-import { View, Button, TextInput, Text} from 'react-native'
+import { View, Button, TextInput, Text, ImageBackground, StyleSheet, TouchableOpacity, Pressable} from 'react-native'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { Snackbar } from 'react-native-paper';
-import { container, form } from '../styles';
+import { container, form } from '../styles'; 
+import Video from 'react-native-video';
 
 export default function Register(props) {
   const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ export default function Register(props) {
           .then((snapshot) => {
 
               if (!snapshot.exist) {
-                  firebase.auth().createUserWithEmailAndPassword(email, password)
+                  firebase.auth().createUserWithEmailAndPassword(auth, email, password)
                       .then(() => {
                           if (snapshot.exist) {
                               return
@@ -62,6 +63,7 @@ export default function Register(props) {
 
   return (
       <View style={container.center}>
+          <ImageBackground source={require('../Image/twoooo.jpg')} style={[styles.background, { }]}>
           <View style={container.formCenter}>
               <TextInput
                   style={form.textInput}
@@ -79,27 +81,49 @@ export default function Register(props) {
                   secureTextEntry={true}
                   onChangeText={(password) => setPassword(password)}
               />
-
-              <Button
-                  style={form.button}
-                  onPress={() => onRegister()}
-                  title="Register"
-              />
+               <TouchableOpacity >
+              <Pressable 
+              onPress={() => onRegister()}
+              style={styles.button}>
+                <Text style={styles.text}>Зарегистрироваться</Text>
+              </Pressable>
+            </TouchableOpacity>
           </View>
-
-          <View style={form.bottomButton} >
-              <Text
-                  onPress={() => props.navigation.navigate("Login")} >
-                  Already have an account? SignIn.
-              </Text>
-          </View>
+          
           <Snackbar
               visible={isValid.boolSnack}
               duration={2000}
               onDismiss={() => { setIsValid({ boolSnack: false }) }}>
               {isValid.message}
           </Snackbar>
+          </ImageBackground>
       </View>
 
   )
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    background: {
+      flex: 1,
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 20,
+        elevation: 3,
+        backgroundColor: '#926EAE',
+        width: 238, 
+        marginLeft: "10%"// Устанавливаем ширину по содержимому
+    },
+    text: {
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
+    },
+  });
