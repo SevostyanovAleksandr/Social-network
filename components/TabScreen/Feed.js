@@ -7,6 +7,8 @@ import 'firebase/compat/firestore';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
+
+
 function Feed(props) {
     const [posts, setPosts] = useState([]);
 
@@ -46,34 +48,37 @@ function Feed(props) {
                     data={posts}
                     renderItem={({ item }) => (
                         <View style={styles.containerInfo}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Image
+                                style={styles.avatar}
+                                source={{ uri: item.user.avatar }}
+                            />
                             <Text style={styles.containerName}>{item.user.name}</Text>
-                            <View  style={styles.containerImage}>
+                        </View>
+                        <View style={styles.containerImage}>
                             <Image
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
-                               
                             />
                             <Text>{item.caption}</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: "flex-end", margin: 12, paddingRight:"3%", paddingTop:"2%" }}>
-                                <View style={{ marginRight: "5%"}}>
-                            <TouchableOpacity
-    onPress={() => props.navigation.navigate('Comment', { postId: item.id, uid: item.user.uid })}
->
-<MaterialCommunityIcons name="comment-edit" size={30} />
-</TouchableOpacity>
-</View>
-<View>
-<TouchableOpacity onPress={handlePress}>
-      <MaterialCommunityIcons
-        name="cards-heart"
-        size={30}
-        color={isHeartRed ? 'red' : 'black'}
-      />
-    </TouchableOpacity>
-      </View>
-      </View>      
                         </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', margin: 12, paddingRight: '3%', paddingTop: '2%' }}>
+                            <View style={{ marginRight: '5%' }}>
+                                <TouchableOpacity onPress={() => props.navigation.navigate('Comment', { postId: item.id, uid: item.user.uid })}>
+                                    <MaterialCommunityIcons name="comment-edit" size={30} />
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+                                <TouchableOpacity onPress={handlePress}>
+                                    <MaterialCommunityIcons
+                                        name="cards-heart"
+                                        size={30}
+                                        color={isHeartRed ? 'red' : 'black'}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
 
                     )}
 
@@ -87,42 +92,41 @@ function Feed(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'white',
     },
     containerName: {
-        marginTop: 10, 
-        marginEnd: 20,
-        marginLeft:10,
-    // Имя файла шрифта без расширения
+        marginTop: 10,
+        marginHorizontal: 10,
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
     },
-    containerGallery: {
-        flex: 1
-    },
-    containerImage: {
-        flex: 1 / 3,
-        borderRadius: 10, // Произвольное значение для закругления углов
-
+    avatar: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        marginRight: 10,
     },
     image: {
-        flex: 1,
-        aspectRatio: 1 / 1
-    }, 
-    containerInfo:{
-        margin:0
-    }, 
+        width: '100%',
+        aspectRatio: 1,
+        borderRadius: 10,
+    },
+    containerInfo: {
+        marginVertical: 10,
+    },
     containerComment: {
         backgroundColor: '#f0f0f0',
-        padding: 0,
+        padding: 5,
         borderRadius: 5,
-        marginVertical: 1,
+        marginVertical: 5,
     },
     commentText: {
         color: 'blue',
-        fontWeight: 'bold'
-    }
-})
+        fontWeight: 'bold',
+    },
+});
+
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,
     following: store.userState.following,

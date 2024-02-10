@@ -81,12 +81,10 @@ export default function Register(props) {
                   secureTextEntry={true}
                   onChangeText={(password) => setPassword(password)}
               />
-               <TouchableOpacity >
-              <Pressable 
+               <TouchableOpacity
               onPress={() => onRegister()}
               style={styles.button}>
                 <Text style={styles.text}>Зарегистрироваться</Text>
-              </Pressable>
             </TouchableOpacity>
           </View>
           
@@ -117,7 +115,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         backgroundColor: '#926EAE',
         width: 238, 
-        marginLeft: "10%"// Устанавливаем ширину по содержимому
+        marginLeft:"10%"
     },
     text: {
       fontSize: 16,

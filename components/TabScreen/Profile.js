@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import { View, Button,Text, Image, FlatList, StyleSheet} from 'react-native'
+import { View, Button,Text, Image, FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ProfileSettings from '../ProfileSettings'
 
-function Profile(props) {
+
+function Profile(props, {navigation}) {
     const [userPosts, setUserPosts] = useState([]);
     const [user, setUser] = useState(null);
     const [following, setFollowing] = useState(false)
@@ -81,9 +84,10 @@ function Profile(props) {
     return (
         <View style={styles.container}>
         <View style={styles.containerInfo}>
+            <View>
             <Text>{user.name}</Text>
             <Text>{user.email}</Text>
-
+            </View>
             {props.route.params.uid !== firebase.auth().currentUser.uid ? (
                 <View>
                     {following ? (
@@ -99,14 +103,23 @@ function Profile(props) {
                             />
                         )}
                 </View>
-            ) :  <Button
-            title="Выйти"
-            onPress={() => onLogout()}
-        />
-        
+            ) :   
+            <TouchableOpacity
+            style={{ padding: 10, borderRadius: 50, marginLeft: "40%" }}
+            onPress={() => onLogout()}>
+             <MaterialCommunityIcons 
+             name="exit-to-app"
+             size={30} />
+          </TouchableOpacity>
         }
-
+            
+      <TouchableOpacity
+        style={{ padding: 10, borderRadius: 50, marginLeft: "3%"}}
+        onPress={() => props.navigation.navigate("ProfileSettings")}>
+         <MaterialCommunityIcons name="account-edit" size={30} />
+      </TouchableOpacity>
         </View>
+        <View style={{ height: 1, backgroundColor: 'grey', marginBottom: 10 }} />
         <View style={styles.containerGallery}>
             <FlatList
                 numColumns={2}
@@ -130,25 +143,40 @@ function Profile(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#fff',
     },
+    
     containerInfo: {
-        margin: 20,
+        flexDirection: 'row',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
+    
     containerGallery: {
         flex: 1,
-        margin:0
     },
+    
+    
     containerImage: {
         flex: 1 / 2,
         aspectRatio: 1 / 1,
         margin: 1,
+        borderRadius: 10,
     },
+    
     image: {
         flex: 1,
         aspectRatio: 1 / 1,
-        borderRadius: 10, // Произвольное значение для закругления углов
+        borderRadius: 10,
         overflow: 'hidden',
     },
+    
 });
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,

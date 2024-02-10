@@ -2,7 +2,9 @@ import React from 'react';
 import { Text, View, Pressable, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { container, form } from './styles';
+
 const windowHeight = Dimensions.get('window').height;
+
 export default function Landing({ navigation }) {
   return (
     <View style={styles.container}>
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingHorizontal: 12,
     borderRadius: 18,
     elevation: 3,
     backgroundColor: '#926EAE',

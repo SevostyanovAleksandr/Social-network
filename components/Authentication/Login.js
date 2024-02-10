@@ -40,12 +40,10 @@ export default function Login(props) {
               />
               </View>
               <View>
-               <TouchableOpacity >
-              <Pressable 
+               <TouchableOpacity
               onPress={() => onSignUp()}
               style={styles.button}>
                 <Text style={styles.text}>Войти</Text>
-              </Pressable>
             </TouchableOpacity>
             </View>
           </View>
@@ -66,12 +64,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       paddingVertical: 12,
-      paddingHorizontal: 32,
+      paddingHorizontal: 12,
       borderRadius: 20,
       elevation: 3,
       backgroundColor: '#926EAE',
       width: 116, 
-      marginLeft: "32%"//
+      marginLeft: "30%"//
     },
     text: {
       fontSize: 16,

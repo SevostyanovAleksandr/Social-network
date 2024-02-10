@@ -20,6 +20,7 @@ import AddScreen from './components/TabScreen/Add'
 import SaveScreen from './components/Save';
 import  CommentScreen from './components/Comment'
 import ChatScreen from './components/TabScreen/Chat'
+import ProfileSettingsScreen from "./components/ProfileSettings"
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
@@ -94,6 +95,7 @@ export class App extends Component {
             <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation}/>
             <Stack.Screen name="Comment" component={CommentScreen} navigation={this.props.navigation}/>
             <Stack.Screen name="Chat" component={ChatScreen} navigation={this.props.navigation}/>
+            <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} navigation={this.props.navigation}/>
 
           </Stack.Navigator>
         </NavigationContainer>
