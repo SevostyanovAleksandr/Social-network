@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import "firebase/compat/storage" 
+import firebase from 'firebase/compat/app'
 
-const ProfileSettings = () => {
+const ProfileSettings = (props, {navigation}) => {
     const [birthday, setBirthday] = useState('01.01.2000');
     const [city, setCity] = useState('Москва');
     const [languages, setLanguages] = useState('Русский');
@@ -12,6 +16,46 @@ const ProfileSettings = () => {
     const [politics, setPolitics] = useState('');
     const [smoking, setSmoking] = useState('');
     const [image,setImage] = useState(require('./Image/avatar.jpg'));
+
+    const uploadImage = async () => {
+        const  ChildPath = `avatar/${firebase.auth().currentUser.uid}/${Math.random().toString(34)}`
+        const uri = image;
+        
+          const response = await fetch(uri) 
+           
+            const blob = await response.blob();
+           
+            
+          const task = firebase.storage().ref().child(ChildPath).put(blob)
+        
+         const taskProgress = snapshot => {
+            console.log(`начало задачи сохранения аватара:${snapshot.bytesTransferred}`)
+        }
+        
+        const taskCompleted = () => {
+           task.snapshot.ref.getDownloadURL().then((snapshot) => {
+            savePostData(snapshot);
+                console.log("Задача завершена аватар добавлен в бд", snapshot)
+            })
+        }
+        const taskError = snapshot => {
+          console.log("Ошибка задания", snapshot)
+        }
+        
+        task.on("state_changed", taskProgress, taskError, taskCompleted);
+        
+        const savePostData = (image) => {
+        
+          firebase.firestore()
+              .collection('users')
+              .doc(firebase.auth().currentUser.uid)
+              .update({
+                image,
+              }).then((function () {
+                  props.navigation.popToTop()
+              }))
+        }
+        }
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -79,7 +123,11 @@ const ProfileSettings = () => {
           <TextInput style={styles.input} value={smoking} onChangeText={setSmoking} />
         </View>
   
-        <Button title="Сохранить изменения" onPress={handleSave} />
+        <TouchableOpacity 
+              onPress={() => uploadImage()}
+              style={styles.button}>
+                <Text style={styles.text}>Сохранить изменения</Text>
+              </TouchableOpacity>
       </View>
     );
   };
@@ -131,7 +179,7 @@ const ProfileSettings = () => {
         borderRadius: 20,
         elevation: 3,
         backgroundColor: '#926EAE',
-        marginLeft: "10%",
+        marginTop:"10%"
 
       },
       text: {

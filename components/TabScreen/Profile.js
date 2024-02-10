@@ -54,25 +54,8 @@ function Profile(props, {navigation}) {
         } else {
             setFollowing(false);
         }
-
     }, [props.route.params.uid, props.following])
-
-    const onFollow = () => {
-        firebase.firestore()
-            .collection("following")
-            .doc(firebase.auth().currentUser.uid)
-            .collection("userFollowing")
-            .doc(props.route.params.uid)
-            .set({})
-    }
-    const onUnfollow = () => {
-        firebase.firestore()
-            .collection("following")
-            .doc(firebase.auth().currentUser.uid)
-            .collection("userFollowing")
-            .doc(props.route.params.uid)
-            .delete()
-    }
+       
 
     const onLogout = () => {
         firebase.auth().signOut();
@@ -84,9 +67,17 @@ function Profile(props, {navigation}) {
     return (
         <View style={styles.container}>
         <View style={styles.containerInfo}>
-            <View>
-            <Text>{user.name}</Text>
+            <View tyle={styles.avatarprofileInfo}>
+                <View>
+            <Image style={styles.avatarprofile}
+           
+             
+            source={{ uri: user.image}}/>
+             </View>
+             <View style={{marginLeft:"10%"}}>
+            <Text >{user.name}</Text>
             <Text>{user.email}</Text>
+            </View>
             </View>
             {props.route.params.uid !== firebase.auth().currentUser.uid ? (
                 <View>
@@ -105,7 +96,7 @@ function Profile(props, {navigation}) {
                 </View>
             ) :   
             <TouchableOpacity
-            style={{ padding: 10, borderRadius: 50, marginLeft: "40%" }}
+            style={{ padding: 10, borderRadius: 50, marginLeft: "30%" }}
             onPress={() => onLogout()}>
              <MaterialCommunityIcons 
              name="exit-to-app"
@@ -145,7 +136,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    
+    avatarprofileInfo :{
+        flexDirection: 'row',
+    },
     containerInfo: {
         flexDirection: 'row',
         shadowColor: '#000',
@@ -176,7 +169,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         overflow: 'hidden',
     },
-    
+    avatarprofile: {
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        margin:"5%"
+      },
 });
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,

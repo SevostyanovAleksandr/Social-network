@@ -46,7 +46,7 @@ export class Main extends Component {
     component={FeedScreen}
     options={{
       tabBarIcon: ({ color, size }) => (
-        <MaterialCommunityIcons name="home" color={color} size={26} />
+        <MaterialCommunityIcons name="home" color={color} size={25} />
       ),
     }}
   />
@@ -56,7 +56,7 @@ export class Main extends Component {
     navigation={this.props.navigation}
     options={{
       tabBarIcon: ({ color, size }) => (
-        <MaterialCommunityIcons name="magnify" color={color} size={26} />
+        <MaterialCommunityIcons name="magnify" color={color} size={25} />
       ),
     }}
   />
@@ -86,7 +86,7 @@ export class Main extends Component {
     })}
     options={{
       tabBarIcon: ({ color, size }) => (
-        <MaterialCommunityIcons name="plus-box" color={color} size={26} />
+        <MaterialCommunityIcons name="plus-box" color={color} size={25} />
       ),
     }}
   />

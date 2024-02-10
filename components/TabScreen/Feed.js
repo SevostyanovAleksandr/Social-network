@@ -51,8 +51,8 @@ function Feed(props) {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image
                                 style={styles.avatar}
-                                source={{ uri: item.user.avatar }}
-                            />
+                                source={{ uri: item.user.image}}/>
+                            
                             <Text style={styles.containerName}>{item.user.name}</Text>
                         </View>
                         <View style={styles.containerImage}>
@@ -102,13 +102,14 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     avatar: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        marginRight: 10,
+        width: 40,
+        height: 40,
+        borderRadius: 17,
+        margin: "1%"
     },
     image: {
         width: '100%',
+        height:"64%",
         aspectRatio: 1,
         borderRadius: 10,
     },
