@@ -1,11 +1,10 @@
 import React, { Component, useState } from 'react'
-import { View, Button, TextInput, Text, ImageBackground, StyleSheet, TouchableOpacity, Pressable} from 'react-native'
+import { View, Button, TextInput, Text, ImageBackground, StyleSheet, TouchableOpacity, Alert} from 'react-native'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { Snackbar } from 'react-native-paper';
 import { container, form } from '../styles'; 
-import Video from 'react-native-video';
 
 export default function Register(props) {
   const [email, setEmail] = useState('');
@@ -15,18 +14,20 @@ export default function Register(props) {
   const [isValid, setIsValid] = useState(true);
 
   const onRegister = () => {
-      if (name.lenght == 0 || username.lenght == 0 || email.length == 0 || password.length == 0) {
-          setIsValid({ bool: true, boolSnack: true, message: "Please fill out everything" })
+      if (name.length == 0 || username.lenght == 0 || email.length == 0 || password.length == 0) {
+        Alert.alert("Пожалуйста, заполните все поля");
           return;
       }
-      if (password.length < 6) {
-          setIsValid({ bool: true, boolSnack: true, message: "passwords must be at least 6 characters" })
+      if (password.length < 8) {
+        Alert.alert("Пароль должен содержать не менее 8 символов");
           return;
       }
-      if (password.length < 6) {
-          setIsValid({ bool: true, boolSnack: true, message: "passwords must be at least 6 characters" })
-          return;
+      if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+        Alert.alert("Ошибка неверный формат почты");
+        return;
       }
+
+
       firebase.firestore()
           .collection('users')
           .where('username', '==', username)
@@ -52,18 +53,18 @@ export default function Register(props) {
                               })
                       })
                       .catch(() => {
-                          setIsValid({ bool: true, boolSnack: true, message: "Something went wrong" })
+                          setIsValid({ bool: true, boolSnack: true, message: "Что то пошло не так" })
                       })
               }
           }).catch(() => {
-              setIsValid({ bool: true, boolSnack: true, message: "Something went wrong" })
+              setIsValid({ bool: true, boolSnack: true, message: "Что то пошло не так" })
           })
 
   }
 
   return (
       <View style={container.center}>
-          <ImageBackground source={require('../Image/twoooo.jpg')} style={[styles.background, { }]}>
+          <ImageBackground source={require('../assets/login signup page.png')} style={[styles.background, { }]}>
           <View style={container.formCenter}>
               <TextInput
                   style={form.textInput}
@@ -109,13 +110,12 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 12,
+        paddingVertical: 18,
         paddingHorizontal: 32,
-        borderRadius: 20,
+        borderRadius: 10,
         elevation: 3,
         backgroundColor: '#926EAE',
-        width: 238, 
-        marginLeft:"10%"
+        width: "100%", 
     },
     text: {
       fontSize: 16,

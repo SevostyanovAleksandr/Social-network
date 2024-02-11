@@ -174,9 +174,9 @@ const ProfileSettings = (props, {navigation}) => {
       button: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 10,
+        paddingVertical: 18,
         paddingHorizontal: 18,
-        borderRadius: 20,
+        borderRadius: 10,
         elevation: 3,
         backgroundColor: '#926EAE',
         marginTop:"10%"

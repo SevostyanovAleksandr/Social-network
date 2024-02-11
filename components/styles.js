@@ -210,9 +210,8 @@ const form = StyleSheet.create({
         marginBottom: 10,
         borderColor: 'gray',
         backgroundColor: 'whitesmoke',
-        padding: 10,
-        borderWidth: 1,
-        borderRadius: 8
+        padding: 20,
+        borderRadius: 10
     },
     bottomButton: {
         alignContent: 'center',

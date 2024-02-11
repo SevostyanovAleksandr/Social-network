@@ -4,12 +4,15 @@ import { connect } from 'react-redux'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';;
+
+
 
 
 
 
 function Feed(props) {
+
     const [posts, setPosts] = useState([]);
 
     const [isHeartRed, setIsHeartRed] = useState(false);
@@ -41,6 +44,7 @@ function Feed(props) {
 
     return (
         <View style={styles.container}>
+            
             <View style={styles.containerGallery}>
                 <FlatList
                     numColumns={1}
@@ -60,7 +64,10 @@ function Feed(props) {
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
                             />
-                            <Text>{item.caption}</Text>
+                            <View style= {{ marginHorizontal: "3%"}}>
+                            <Text  style={{fontWeight: 'bold'}}>Просмотры 1</Text>
+                            <Text style = {{color: "grey"}}>{item.caption}</Text>
+                            </View>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', margin: 12, paddingRight: '3%', paddingTop: '2%' }}>
                             <View style={{ marginRight: '5%' }}>
@@ -122,10 +129,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 5,
     },
-    commentText: {
-        color: 'blue',
-        fontWeight: 'bold',
-    },
+
 });
 
 const mapStateToProps = (store) => ({

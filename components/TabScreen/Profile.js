@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { View, Button,Text, Image, FlatList, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, ImageBackground, Button,Text, Image, FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
@@ -12,6 +12,7 @@ function Profile(props, {navigation}) {
     const [userPosts, setUserPosts] = useState([]);
     const [user, setUser] = useState(null);
     const [following, setFollowing] = useState(false)
+ 
 
     useEffect(() => {
         const { currentUser, posts } = props;
@@ -56,7 +57,22 @@ function Profile(props, {navigation}) {
         }
     }, [props.route.params.uid, props.following])
        
-
+    const onFollow = () => {
+        firebase.firestore()
+            .collection("following")
+            .doc(firebase.auth().currentUser.uid)
+            .collection("userFollowing")
+            .doc(props.route.params.uid)
+            .set({})
+    }
+    const onUnfollow = () => {
+        firebase.firestore()
+            .collection("following")
+            .doc(firebase.auth().currentUser.uid)
+            .collection("userFollowing")
+            .doc(props.route.params.uid)
+            .delete()
+    }
     const onLogout = () => {
         firebase.auth().signOut();
     }
@@ -66,6 +82,7 @@ function Profile(props, {navigation}) {
     }
     return (
         <View style={styles.container}>
+            <ImageBackground source={require('../assets/profile section.png')} style={[styles.background]}>
         <View style={styles.containerInfo}>
             <View tyle={styles.avatarprofileInfo}>
                 <View>
@@ -126,6 +143,7 @@ function Profile(props, {navigation}) {
                 )}
             />
         </View>
+        </ImageBackground>
     </View>
 
     )
@@ -134,11 +152,15 @@ function Profile(props, {navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
     },
     avatarprofileInfo :{
         flexDirection: 'row',
+        alignItems: "center",
+        justifyContent:"center"
     },
+    background: {
+        flex: 1,
+      },
     containerInfo: {
         flexDirection: 'row',
         shadowColor: '#000',

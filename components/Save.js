@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Button, TextInput, Image } from 'react-native'
+import { View, Button, TextInput, Image, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
@@ -55,14 +55,59 @@ const savePostData = (downloadURL) => {
 }
  
 return (
-    
-   <View style={{flex: 1}}>
-    <Image source={{uri: props.route.params.image}} />
-<TextInput
-placeholder='Введите описание'
-onChangeText={(caption) => setCaption(caption)}
-/>
-<Button title="Сохранить" onPress= {()=> uploadImage()} />
-   </View>
-  )
+  <View style={styles.container}>
+    <Image source={{ uri: props.route.params.image }} style={styles.image} />
+    <TextInput
+      style={styles.input}
+      placeholder='Введите описание'
+      onChangeText={(caption) => setCaption(caption)}
+    />
+              <TouchableOpacity 
+              onPress={() => uploadImage()}
+              style={styles.button}>
+                <Text style={styles.text}>Сохранить пост</Text>
+              </TouchableOpacity>
+  </View>
+);
 }
+
+const styles = StyleSheet.create({
+container: {
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+marginBottom:"80%"
+},
+image: {
+  width: "100%",
+  height: "70%",
+  marginBottom: 20,
+  borderRadius: 20
+},
+input: {
+  width: '100%',
+  height: 40,
+  borderWidth: 1,
+  borderColor: 'gray',
+  borderRadius: 5,
+  padding: 10,
+},
+button: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingVertical: 10,
+  paddingHorizontal: 18,
+  borderRadius: 20,
+  elevation: 3,
+  backgroundColor: '#926EAE',
+  marginTop:"4%"
+
+},
+text: {
+  fontSize: 16,
+  lineHeight: 21,
+  fontWeight: 'bold',
+  letterSpacing: 0.25,
+  color: 'white',
+},
+});

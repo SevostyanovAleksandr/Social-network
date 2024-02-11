@@ -8,7 +8,7 @@ const windowHeight = Dimensions.get('window').height;
 export default function Landing({ navigation }) {
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./Image/twoo.jpg')} style={[styles.background, { height: windowHeight / 1.3}]}>
+      <ImageBackground source={require('./assets/login signup page.png')} style={[styles.background]}>
       <View style={container.formCenter}>
           <View style={{marginTop:"40%"}}>
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
@@ -42,16 +42,15 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
+    paddingVertical: 18,
     paddingHorizontal: 12,
-    borderRadius: 18,
+    borderRadius: 10,
     elevation: 3,
     backgroundColor: '#926EAE',
-    width: 180, 
-    marginLeft:"20%"
+    width: "100%", 
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
