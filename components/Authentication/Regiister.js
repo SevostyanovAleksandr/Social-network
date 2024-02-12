@@ -73,8 +73,10 @@ export default function Register(props) {
      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
      >
           <View style={container.formCenter}>
-          <Svg height="200" width="200">
-     <SvgImage href={require('../assets/vconnect3.png')} height="200" width="200" />
+          <Svg 
+          style={{marginLeft:"8%"}}
+          height="100" width="200">
+     <SvgImage href={require('../assets/vconnect3.png')} height="100" width="200" />
    </Svg>
               <TextInput
                   style={form.textInput}

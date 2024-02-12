@@ -31,8 +31,8 @@ export default function Login({ navigation }) {
      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
      >
         <View style={container.formCenter}>
-        <Svg height="200" width="200">
-     <SvgImage href={require('../assets/vconnect3.png')} height="200" width="200" />
+        <Svg height="100" width="200">
+     <SvgImage href={require('../assets/vconnect3.png')} height="100" width="200" />
    </Svg>
           <View>
             <TextInput
