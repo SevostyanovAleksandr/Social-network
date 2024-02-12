@@ -7,22 +7,14 @@ import 'firebase/compat/firestore';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';;
 
 
-
-
-
-
 function Feed(props) {
-
     const [posts, setPosts] = useState([]);
-
     const [isHeartRed, setIsHeartRed] = useState(false);
-
     const handlePress = () => {
       setIsHeartRed(!isHeartRed);}
-      const onUsernamePress = (username, matchIndex) => {
-        props.navigation.navigate("ProfileOther", { username, uid: undefined })
+      const onUsernamePress = (username, uid) => {
+        props.navigation.navigate("Profile", { username, uid })
     }
-
     useEffect(() => {
         let posts = [];
         if (props.usersFollowingLoaded == props.following.length) {
@@ -32,41 +24,42 @@ function Feed(props) {
                     posts = [...posts, ...user.posts];
                 }
             }
-
             posts.sort(function (x, y) {
                 return x.creation - y.creation;
             })
-
             setPosts(posts);
         }
-
     }, [props.usersFollowingLoaded])
 
     return (
         <View style={styles.container}>
-            
-            <View style={styles.containerGallery}>
-                <FlatList
-                    numColumns={1}
-                    horizontal={false}
-                    data={posts}
-                    renderItem={({ item }) => (
-                        <View style={styles.containerInfo}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.containerGallery}>
+            <FlatList
+                numColumns={1}
+                horizontal={false}
+                data={posts}
+                renderItem={({ item }) => (
+                    <View style={styles.containerInfo}>
+                        <View >
+                            <TouchableOpacity  
+                            style={{ flexDirection: 'row', alignItems: 'center' }}
+                            onPress={() => onUsernamePress(item.user.name, item.user.uid)}>
                             <Image
                                 style={styles.avatar}
-                                source={{ uri: item.user.image}}/>
-                            
+                                source={{ uri: item.user.image }}
+                            />
                             <Text style={styles.containerName}>{item.user.name}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.containerImage}>
                             <Image
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
+                                
                             />
-                            <View style= {{ marginHorizontal: "3%"}}>
-                            <Text  style={{fontWeight: 'bold'}}>Просмотры 1</Text>
-                            <Text style = {{color: "grey"}}>{item.caption}</Text>
+                            <View style={{ marginHorizontal: "3%" }}>
+                                <Text style={{ fontWeight: 'bold' }}>Просмотры: 1</Text>
+                                <Text style={{ color: "grey" }}>{item.caption}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', margin: 12, paddingRight: '3%', paddingTop: '2%' }}>
@@ -86,12 +79,10 @@ function Feed(props) {
                             </View>
                         </View>
                     </View>
-
-                    )}
-
-                />
-            </View>
+                )}
+            />
         </View>
+</View>
 
     )
 }
@@ -100,6 +91,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+        marginTop:"10%" 
+    },
+    containerImage: {
+        flex: 1 / 3
+
+    },
+    containerGallery: {
+        flex: 1
     },
     containerName: {
         marginTop: 10,
@@ -115,10 +114,8 @@ const styles = StyleSheet.create({
         margin: "1%"
     },
     image: {
-        width: '100%',
-        height:"64%",
-        aspectRatio: 1,
-        borderRadius: 10,
+        flex: 1,
+        aspectRatio: 1 / 1, 
     },
     containerInfo: {
         marginVertical: 10,
@@ -131,6 +128,7 @@ const styles = StyleSheet.create({
     },
 
 });
+
 
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,

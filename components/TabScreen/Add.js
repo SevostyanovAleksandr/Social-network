@@ -62,7 +62,7 @@ const takePicture = async () => {
     return <Text>Нет разраешения к использованию камеры</Text>;
   }
   return (
-    <View style={{ flex: 1, backgroundColor: '#000' }}>
+    <View style={{ flex: 1, backgroundColor: '#000',}}>
     <View style={styles.cameraContainer}>
       <Camera
         ref={ref => setCamera(ref)}

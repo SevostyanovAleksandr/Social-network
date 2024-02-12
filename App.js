@@ -21,6 +21,8 @@ import SaveScreen from './components/Save';
 import  CommentScreen from './components/Comment'
 import ChatScreen from './components/TabScreen/Chat'
 import ProfileSettingsScreen from "./components/ProfileSettings"
+import ForgotPasswordScreen from "./components/Authentication/ForgotPassword"
+
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
@@ -81,22 +83,24 @@ export class App extends Component {
             <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="ForgotPssword" component={ForgotPasswordScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       );
+
+
     }
 
     return (
       <Provider store={store}>
         <NavigationContainer >
-          <Stack.Navigator initialRouteName="Main">
-            <Stack.Screen name="Main" component={MainScreen} />
+          <Stack.Navigator initialRouteName="Main" >
+            <Stack.Screen name="Main" component={MainScreen}  options={{ headerShown: false }}  />
             <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
             <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation}/>
             <Stack.Screen name="Comment" component={CommentScreen} navigation={this.props.navigation}/>
             <Stack.Screen name="Chat" component={ChatScreen} navigation={this.props.navigation}/>
             <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} navigation={this.props.navigation}/>
-
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

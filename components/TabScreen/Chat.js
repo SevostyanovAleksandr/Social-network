@@ -1,14 +1,11 @@
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import 'firebase/compat/database'
 import React, { useEffect, useCallback, useState, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import { auth, db } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-
-const Chat = ({navigation }) => {
+const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
     const signOutNow = () => {
         signOut(auth).then(() => {
@@ -25,7 +22,7 @@ const Chat = ({navigation }) => {
                     <Avatar
                         rounded
                         source={{
-                            uri: auth?.currentUser?.photoURL,
+                            uri: auth?.currentUser?.image,
                         }}
                     />
                 </View>
@@ -51,24 +48,13 @@ const Chat = ({navigation }) => {
                 user: {
                     _id: 2,
                     name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
+                    avatar: 'https://forumavatars.ru/img/avatars/0016/5f/70/92-1516436908.jpg',
                 },
             },
         ])
     }, []);
     const onSend = useCallback((messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-           const { _id, createdAt, text, user,} = messages[0]
-        firebase.default.firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("Chat")
-        .add({
-            _id, 
-            createdAt, 
-            text, 
-            user
-        })
     }, []);
     return (
         <GiftedChat
@@ -77,8 +63,8 @@ const Chat = ({navigation }) => {
             onSend={messages => onSend(messages)}
             user={{
                 _id: auth?.currentUser?.email,
-                name: auth?.currentUser?.displayName,
-                avatar: auth?.currentUser?.photoURL
+                name: auth?.currentUser?.name,
+                avatar: auth?.currentUser?.image
             }}
         />
     );

@@ -35,6 +35,7 @@ export default function Search(props) {
             data={users}
             renderItem={({ item }) => (
                 <TouchableOpacity
+
                     onPress={() => props.navigation.navigate("Profile", {uid: item.id})}>
                     <Text style={styles.item}>{item.name}</Text>
                 </TouchableOpacity>
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        marginTop:"10%" 
     },
     input: {
         height: 40,

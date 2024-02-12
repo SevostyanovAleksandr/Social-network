@@ -5,6 +5,8 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { Snackbar } from 'react-native-paper';
 import { container, form } from '../styles'; 
+import { LinearGradient } from 'expo-linear-gradient';
+import Svg, { Image as SvgImage } from 'react-native-svg'
 
 export default function Register(props) {
   const [email, setEmail] = useState('');
@@ -64,8 +66,16 @@ export default function Register(props) {
 
   return (
       <View style={container.center}>
-          <ImageBackground source={require('../assets/login signup page.png')} style={[styles.background, { }]}>
+          <LinearGradient
+     colors={['rgb(185, 249, 244)', 'rgb(242, 213, 249)']}
+     start={{ x: 0, y: 0 }}
+     end={{ x: 1, y: 0 }}
+     style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+     >
           <View style={container.formCenter}>
+          <Svg height="200" width="200">
+     <SvgImage href={require('../assets/vconnect3.png')} height="200" width="200" />
+   </Svg>
               <TextInput
                   style={form.textInput}
                   placeholder="name"
@@ -95,7 +105,7 @@ export default function Register(props) {
               onDismiss={() => { setIsValid({ boolSnack: false }) }}>
               {isValid.message}
           </Snackbar>
-          </ImageBackground>
+          </LinearGradient>
       </View>
 
   )

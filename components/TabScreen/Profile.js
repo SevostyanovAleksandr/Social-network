@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { View, ImageBackground, Button,Text, Image, FlatList, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, ImageBackground, Button,Text, Image, FlatList, StyleSheet, TouchableOpacity, Alert, Pressable} from 'react-native'
 import { connect } from 'react-redux'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
@@ -13,7 +13,11 @@ function Profile(props, {navigation}) {
     const [user, setUser] = useState(null);
     const [following, setFollowing] = useState(false)
  
+    const [activeTab, setActiveTab] = useState(1);
 
+    const handleTabPress = (tabNumber) => {
+      setActiveTab(tabNumber);
+    };
     useEffect(() => {
         const { currentUser, posts } = props;
 
@@ -74,8 +78,22 @@ function Profile(props, {navigation}) {
             .delete()
     }
     const onLogout = () => {
-        firebase.auth().signOut();
-    }
+        Alert.alert(
+            'Выход',
+            'Вы уверены, что хотите выйти?',
+            [
+                {
+                    text: 'Отмена',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Выйти',
+                    onPress: () => firebase.auth().signOut(),
+                },
+            ],
+            { cancelable: true }
+        );
+    };
 
     if (user === null) {
         return <View />
@@ -83,6 +101,13 @@ function Profile(props, {navigation}) {
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../assets/profile section.png')} style={[styles.background]}>
+            <TouchableOpacity style={{marginTop:"10%", marginLeft:"85%"}}
+            onPress={() => onLogout()}>
+             <MaterialCommunityIcons 
+             name="exit-to-app"
+             size={30} />
+          </TouchableOpacity>
+            
         <View style={styles.containerInfo}>
             <View tyle={styles.avatarprofileInfo}>
                 <View>
@@ -91,43 +116,64 @@ function Profile(props, {navigation}) {
              
             source={{ uri: user.image}}/>
              </View>
-             <View style={{marginLeft:"10%"}}>
-            <Text >{user.name}</Text>
-            <Text>{user.email}</Text>
+             <View>
+            <Text style = {{marginTop: " 5%", color :"grey"}} >{user.name}</Text>
+            <Text style={{color:"grey"}} >{user.email}</Text>
             </View>
             </View>
             {props.route.params.uid !== firebase.auth().currentUser.uid ? (
-                <View>
+                <View style={{flexDirection: 'row'}}>
                     {following ? (
-                        <Button
-                            title="Отписаться"
-                            onPress={() => onUnfollow()}
-                        />
+                        <View style={styles.rowContainer}>
+                                    <TouchableOpacity style={styles.button} onPress={() =>  onUnfollow()}>
+                                      <Text style={styles.text}>Отписаться</Text>
+                                  </TouchableOpacity>
+                                      <TouchableOpacity style={styles.button} onPress={() =>  onFollow()}>
+                                      <Text style={styles.text}>Написать</Text>
+                                  </TouchableOpacity>
+                                  </View>
                     ) :
                         (
-                            <Button
-                                title="Подписаться"
-                                onPress={() => onFollow()}
-                            />
+                           <View style={styles.rowContainer}>
+                            <TouchableOpacity style={styles.button} onPress={() =>  onFollow()}>
+                            <Text style={styles.text}>Подписаться</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() =>  onFollow()}>
+                                      <Text style={styles.text}>Написать</Text>
+                                  </TouchableOpacity>
+                        </View>
                         )}
                 </View>
             ) :   
+     
             <TouchableOpacity
-            style={{ padding: 10, borderRadius: 50, marginLeft: "30%" }}
-            onPress={() => onLogout()}>
-             <MaterialCommunityIcons 
-             name="exit-to-app"
-             size={30} />
+            onPress={() => props.navigation.navigate("ProfileSettings")}>
+             <MaterialCommunityIcons name="account-edit" size={30} />
           </TouchableOpacity>
+          
         }
-            
-      <TouchableOpacity
-        style={{ padding: 10, borderRadius: 50, marginLeft: "3%"}}
-        onPress={() => props.navigation.navigate("ProfileSettings")}>
-         <MaterialCommunityIcons name="account-edit" size={30} />
-      </TouchableOpacity>
         </View>
-        <View style={{ height: 1, backgroundColor: 'grey', marginBottom: 10 }} />
+        <View style={{ height: 1, backgroundColor: 'grey',}} />
+        <View style={styles.tabsContainer}>
+      <TouchableOpacity
+        style={[styles.tab, activeTab === 1 && styles.activeTab]}
+        onPress={() => handleTabPress(1)}
+      >
+        <Text style={styles.tabText}>Всё</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tab, activeTab === 2 && styles.activeTab]}
+        onPress={() => handleTabPress(2)}
+      >
+        <Text style={styles.tabText}>Фото</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tab, activeTab === 3 && styles.activeTab]}
+        onPress={() => handleTabPress(3)}
+      >
+        <Text style={styles.tabText}>Видео</Text>
+      </TouchableOpacity>
+    </View>
         <View style={styles.containerGallery}>
             <FlatList
                 numColumns={2}
@@ -153,49 +199,93 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    avatarprofileInfo :{
+    rowContainer: {
         flexDirection: 'row',
-        alignItems: "center",
-        justifyContent:"center"
+        justifyContent: 'space-around', // Выравнивание элементов по горизонтали
+        alignItems: 'center', // Выравнивание элементов по вертикали
+        marginVertical: 1, // Вертикальный отступ между элементами
+    },
+    avatarprofileInfo :{
     },
     background: {
         flex: 1,
       },
     containerInfo: {
-        flexDirection: 'row',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
+        alignItems:"center",
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
+        elevation: 10,
+        marginTop:"10%"
+
     },
-    
+    rowContainerScrenn:{
+        flexDirection: 'row',
+        justifyContent: 'space-around', // Выравнивание элементов по горизонтали
+        alignItems: 'center', // Выравнивание элементов по вертикали
+        marginVertical: 9, // Вертикальный отступ между элементами
+        marginHorizontal:"10%",
+        
+        
+    },
     containerGallery: {
         flex: 1,
+        margin: 1
     },
     
     
     containerImage: {
         flex: 1 / 2,
         aspectRatio: 1 / 1,
-        margin: 1,
-        borderRadius: 10,
+        borderRadius: 12,
+        margin:1
     },
     
     image: {
         flex: 1,
         aspectRatio: 1 / 1,
-        borderRadius: 10,
+        borderRadius: 12,
         overflow: 'hidden',
     },
     avatarprofile: {
-        width: 70,
-        height: 70,
+        width: 100,
+        height: 100,
         borderRadius: 50,
-        margin:"5%"
+        marginLeft: 10
+      },
+      button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 5,
+        borderRadius: 20,
+        elevation: 3,
+        backgroundColor: '#926EAE',
+        width: "40%",
+        marginBottom:3 
+      },
+      text: {
+        fontSize: 14,
+        lineHeight: 14,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
+      },
+      tabsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#f0f0f0',
+        padding: 8,
+      },
+      tab: {
+        padding: 10,
+      },
+      activeTab: {
+        backgroundColor: '#926EAE',
+        borderRadius: 10,
+      },
+      tabText: {
+        color: '#333',
+        fontWeight: 'bold',
       },
 });
 const mapStateToProps = (store) => ({
