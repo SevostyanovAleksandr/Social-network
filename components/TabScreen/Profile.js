@@ -5,16 +5,13 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import ProfileSettings from '../ProfileSettings'
 
 
 function Profile(props, {navigation}) {
     const [userPosts, setUserPosts] = useState([]);
     const [user, setUser] = useState(null);
-    const [following, setFollowing] = useState(false)
- 
+    const [following, setFollowing] = useState(false) 
     const [activeTab, setActiveTab] = useState(1);
-
     const handleTabPress = (tabNumber) => {
       setActiveTab(tabNumber);
     };
@@ -53,7 +50,6 @@ function Profile(props, {navigation}) {
                     setUserPosts(posts)
                 })
         }
-
         if (props.following.indexOf(props.route.params.uid) > -1) {
             setFollowing(true);
         } else {
@@ -216,7 +212,6 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 10,
         marginTop:"10%"
-
     },
     rowContainerScrenn:{
         flexDirection: 'row',
@@ -224,22 +219,17 @@ const styles = StyleSheet.create({
         alignItems: 'center', // Выравнивание элементов по вертикали
         marginVertical: 9, // Вертикальный отступ между элементами
         marginHorizontal:"10%",
-        
-        
     },
     containerGallery: {
         flex: 1,
         margin: 1
     },
-    
-    
     containerImage: {
         flex: 1 / 2,
         aspectRatio: 1 / 1,
         borderRadius: 12,
         margin:1
     },
-    
     image: {
         flex: 1,
         aspectRatio: 1 / 1,

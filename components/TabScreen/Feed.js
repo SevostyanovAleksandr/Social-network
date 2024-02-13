@@ -257,13 +257,11 @@ const styles = StyleSheet.create({
 
 });
 
-
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,
     following: store.userState.following,
     users: store.usersState.users,
     usersFollowingLoaded: store.usersState.usersFollowingLoaded,
-
-
 })
+
 export default connect(mapStateToProps, null)(Feed);

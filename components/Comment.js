@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, FlatList, Button, TextInput } from 'react-native'
-
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
-
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchUsersData } from '../redux/actions/index'
@@ -31,8 +29,6 @@ function Comment(props) {
             }
             setComments(comments)
         }
-
-
         if (props.route.params.postId !== postId) {
             firebase.firestore()
                 .collection('posts')
@@ -54,7 +50,6 @@ function Comment(props) {
             matchUserToComment(comments)
         }
     }, [props.route.params.postId, props.users])
-
 
     const onCommentSend = () => {
         firebase.firestore()
@@ -86,7 +81,6 @@ function Comment(props) {
                     </View>
                 )}
             />
-
             <View>
                 <TextInput
                     placeholder='коментарий'
@@ -100,7 +94,6 @@ function Comment(props) {
         </View>
     )
 }
-
 
 const mapStateToProps = (store) => ({
     users: store.usersState.users

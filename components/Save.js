@@ -6,23 +6,16 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import "firebase/compat/storage" 
 
-
 export default function SaveImage(props, {navigation}) {
 
 const [caption, setCaption] = useState("");
-
 const uploadImage = async () => {
 const  ChildPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(34)}`
 const uri = props.route.params.image ;
-
-  const response = await fetch(uri) 
-   
-    const blob = await response.blob();
-   
-    
-  const task = firebase.storage().ref().child(ChildPath).put(blob)
-
- const taskProgress = snapshot => {
+const response = await fetch(uri) 
+const blob = await response.blob();    
+const task = firebase.storage().ref().child(ChildPath).put(blob)
+const taskProgress = snapshot => {
     console.log(`начало задачи:${snapshot.bytesTransferred}`)
 }
 
@@ -39,7 +32,6 @@ const taskError = snapshot => {
 task.on("state_changed", taskProgress, taskError, taskCompleted);
 
 const savePostData = (downloadURL) => {
-
   firebase.firestore()
       .collection('posts')
       .doc(firebase.auth().currentUser.uid)

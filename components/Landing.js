@@ -12,15 +12,12 @@ export default function Landing({ navigation }) {
   return (
    
     <View style={styles.container}>
-    
      <LinearGradient
      colors={['rgb(185, 249, 244)', 'rgb(242, 213, 249)']}
      start={{ x: 0, y: 0 }}
      end={{ x: 1, y: 0 }}
      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-
      >
-         
       <View style={container.formCenter}>
         <Svg height="200" width="200">
      <SvgImage href={require('./assets/vconnect3.png')} height="200" width="200" />
@@ -42,7 +39,6 @@ export default function Landing({ navigation }) {
         </View>
         </LinearGradient>
     </View>
- 
   )
 }
 
@@ -53,7 +49,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   background: {
-    
     flex: 1,
   },
   button: {

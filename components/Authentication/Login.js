@@ -100,6 +100,4 @@ const styles = StyleSheet.create({
     color: '#926EAE',
     marginLeft:"20%"
   }
-
-
 });

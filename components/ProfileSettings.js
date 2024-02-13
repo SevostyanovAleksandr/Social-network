@@ -20,15 +20,10 @@ const ProfileSettings = (props, {navigation}) => {
     const uploadImage = async () => {
         const  ChildPath = `avatar/${firebase.auth().currentUser.uid}/${Math.random().toString(34)}`
         const uri = image;
-        
-          const response = await fetch(uri) 
-           
-            const blob = await response.blob();
-           
-            
-          const task = firebase.storage().ref().child(ChildPath).put(blob)
-        
-         const taskProgress = snapshot => {
+        const response = await fetch(uri) 
+        const blob = await response.blob();        
+        const task = firebase.storage().ref().child(ChildPath).put(blob)
+        const taskProgress = snapshot => {
             console.log(`начало задачи сохранения аватара:${snapshot.bytesTransferred}`)
         }
         
@@ -67,12 +62,10 @@ const ProfileSettings = (props, {navigation}) => {
         });
     
         console.log("Avatar теперь", result);
-    
         if (!result.canceled) {
           setImage(result.assets[0].uri);
         }
       };
-
 
     const handleSave = () => {
         // Добавьте здесь логику для сохранения изменений
@@ -112,7 +105,6 @@ const ProfileSettings = (props, {navigation}) => {
           <Icon name="graduation-cap" size={20} color="#6A5ACD" />
           <TextInput style={styles.input} value={school} onChangeText={setSchool} />
         </View>
-  
         <Text style={styles.sectionTitle}>Личная информация</Text>
         <View style={styles.inputContainer}>
           <Icon name="balance-scale" size={20} color="#6A5ACD" />
@@ -122,7 +114,6 @@ const ProfileSettings = (props, {navigation}) => {
           <Icon name="coffee" size={20} color="#6A5ACD" />
           <TextInput style={styles.input} value={smoking} onChangeText={setSmoking} />
         </View>
-  
         <TouchableOpacity 
               onPress={() => uploadImage()}
               style={styles.button}>

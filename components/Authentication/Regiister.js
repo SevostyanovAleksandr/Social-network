@@ -28,8 +28,6 @@ export default function Register(props) {
         Alert.alert("Ошибка неверный формат почты");
         return;
       }
-
-
       firebase.firestore()
           .collection('users')
           .where('username', '==', username)
@@ -61,9 +59,8 @@ export default function Register(props) {
           }).catch(() => {
               setIsValid({ bool: true, boolSnack: true, message: "Что то пошло не так" })
           })
-
   }
-
+  
   return (
       <View style={container.center}>
           <LinearGradient

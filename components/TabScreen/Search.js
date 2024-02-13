@@ -6,7 +6,6 @@ import React, { useState } from 'react'
 
 export default function Search(props) {
     const [users, setUsers] = useState([])
-
     const fetchUsers = (search) => {
         firebase.firestore()
             .collection('users')

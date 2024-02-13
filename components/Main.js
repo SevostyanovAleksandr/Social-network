@@ -11,9 +11,9 @@ import SearchScreen from './TabScreen/Search'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'; 
+import { colorsDark } from 'react-native-elements/dist/config';
 
 const Tab = createMaterialBottomTabNavigator();
-
 const EmptyScreen = () => {
     return (null)
 }
@@ -25,8 +25,6 @@ export class Main extends Component {
         this.props.fetchUserPosts();
         this.props.fetchUserFollowing();
     }
-
-    
     render() {
         return (
             <Tab.Navigator
@@ -71,7 +69,7 @@ export class Main extends Component {
     })}
     options={{
       tabBarIcon: ({ color, size }) => (
-        <MaterialCommunityIcons name="chat" color={color} size={30} />
+        <MaterialCommunityIcons name="chat-question" color="orange" size={33} />
       ),
     }}
   />

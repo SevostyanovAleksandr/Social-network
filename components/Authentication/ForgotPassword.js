@@ -18,7 +18,6 @@ const ForgotPassword = () => {
           })
       }
     
-
   return (
     <View style={styles.container}>
     <LinearGradient
@@ -51,8 +50,6 @@ const ForgotPassword = () => {
    </View>
   );
 };
-
-export default ForgotPassword;
 
 const styles = StyleSheet.create({
     container: {
@@ -87,6 +84,5 @@ const styles = StyleSheet.create({
       marginTop:"5%",
       marginLeft: "28%"
     }
-  
-  
   });
+  export default ForgotPassword;

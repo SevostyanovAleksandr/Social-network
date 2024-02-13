@@ -51,9 +51,6 @@ const takePicture = async () => {
       setImage(result.assets[0].uri);
     }
   };
-
-
-
   //Здесь происходит проверка разрешений на использование камеры и галереи. Если разрешения не установлены, возвращается пустой View или текст "Нет разраешения к использованию камеры".
   if (hasCameraPermission === null || hasGalleryPermission === false) {
     return <View />;
