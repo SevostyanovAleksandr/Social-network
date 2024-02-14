@@ -28,10 +28,7 @@ export class Main extends Component {
     render() {
         return (
             <Tab.Navigator
-  initialRouteName="Feed"
-  labeled={true}
-  tabBarOptions={{
-    
+  initialRouteName="Feed" labeled={true} tabBarOptions={{
     style: {
       backgroundColor: '#fff',
       borderTopColor: '#ddd',
@@ -39,29 +36,19 @@ export class Main extends Component {
     },
   }}
 >
-  <Tab.Screen
-    name="Feed"
-    component={FeedScreen}
-    options={{
+  <Tab.Screen name="Feed" component={FeedScreen} options={{
       tabBarIcon: ({ color, size }) => (
         <MaterialCommunityIcons name="home" color={color} size={25} />
       ),
     }}
   />
-  <Tab.Screen
-    name="Search"
-    component={SearchScreen}
-    navigation={this.props.navigation}
-    options={{
+  <Tab.Screen name="Search" component={SearchScreen} navigation={this.props.navigation} options={{
       tabBarIcon: ({ color, size }) => (
         <MaterialCommunityIcons name="magnify" color={color} size={25} />
       ),
     }}
   />
-   <Tab.Screen
-    name="Chat"
-    component={ChatScreen}
-    listeners={({ navigation }) => ({
+   <Tab.Screen name="Chat" component={ChatScreen} listeners={({ navigation }) => ({
       tabPress: event => {
         event.preventDefault();
         navigation.navigate("Chat");
@@ -73,10 +60,7 @@ export class Main extends Component {
       ),
     }}
   />
-  <Tab.Screen
-    name="Photo"
-    component={EmptyScreen}
-    listeners={({ navigation }) => ({
+  <Tab.Screen name="Photo" component={EmptyScreen} listeners={({ navigation }) => ({
       tabPress: event => {
         event.preventDefault();
         navigation.navigate("Add");
@@ -88,10 +72,7 @@ export class Main extends Component {
       ),
     }}
   />
-  <Tab.Screen
-    name="Profile"
-    component={ProfileScreen}
-    listeners={({ navigation }) => ({
+  <Tab.Screen name="Profile" component={ProfileScreen} listeners={({ navigation }) => ({
       tabPress: event => {
         event.preventDefault();
         navigation.navigate("Profile", {

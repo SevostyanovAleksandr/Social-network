@@ -96,7 +96,7 @@ function Profile(props, {navigation}) {
     }
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/profile section.png')} style={[styles.background]}>
+         
             <TouchableOpacity style={{marginTop:"10%", marginLeft:"85%"}}
             onPress={() => onLogout()}>
              <MaterialCommunityIcons 
@@ -185,7 +185,6 @@ function Profile(props, {navigation}) {
                 )}
             />
         </View>
-        </ImageBackground>
     </View>
 
     )

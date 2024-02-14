@@ -138,9 +138,9 @@ function Feed(props, {item}) {
 </View>
             </View>
             <InstaStory
-  data={data}
-  duration={10}
-/>
+              data={data}
+              duration={10}
+            />
         <View style={styles.containerGallery}>
             
             <FlatList

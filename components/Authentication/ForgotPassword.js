@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     handleResetPassword = (Email) => {
         firebase.auth().sendPasswordResetEmail(Email)
           .then(function (user) {
-            alert('Please check your email...')
+            alert('Пожалуйста введите email')
           }).catch(function (e) {
             console.log(e)
           })
